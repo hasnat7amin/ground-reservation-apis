@@ -12,6 +12,8 @@ module.exports = async (req, res, next) => {
 
   const token = bearerHeader.split(" ")[1];
 
+  console.log(token)
+
   try {
     await JWT.verify(
       token,
@@ -26,7 +28,7 @@ module.exports = async (req, res, next) => {
           });
         } else {
           let user = await User.findById(decodedToken.id);
-          if (user.role == "member") {
+          if (user.role == "admin") {
             req.user = user;
             next();
           }else{
