@@ -15,10 +15,16 @@ const GroundReservationSchema = new mongoose.Schema(
     from: {
       type: Date,
       required: true,
+      required: true,
     },
     to: {
       type: Date,
       required: true,
+      required: true,
+    },
+    totalParticipants:{
+        type: Number,
+        default:0
     },
     status: {
       type: String,

@@ -12,7 +12,7 @@ module.exports = async (req, res) => {
     }
 
     // Delete the reservation
-    await reservation.remove();
+    await GroundReservation.deleteOne({ _id: reservationId });
 
     return res.status(200).json({
       code: 200,

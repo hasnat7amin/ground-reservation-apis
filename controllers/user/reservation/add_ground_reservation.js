@@ -4,7 +4,7 @@ const sendErrorResponse = require("../../../utils/send-error-response");
 
 module.exports = async (req, res) => {
   try {
-    const { groundId, from, to } = req.body;
+    const { groundId, from, to, totalParticipants } = req.body;
 
     // Check if the ground exists
     const ground = await Ground.findById(groundId);
@@ -35,6 +35,7 @@ module.exports = async (req, res) => {
       ground: groundId,
       from: new Date(from),
       to: new Date(to),
+      totalParticipants: totalParticipants
     });
 
     return res.status(200).json({

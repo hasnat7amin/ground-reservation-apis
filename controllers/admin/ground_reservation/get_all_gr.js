@@ -1,3 +1,4 @@
+const { default: mongoose } = require("mongoose");
 const GroundReservation = require("../../../models/GroundReservation");
 const sendErrorResponse = require("../../../utils/send-error-response");
 
@@ -7,7 +8,7 @@ module.exports = async (req, res) => {
 
     // Check if the ground exists
     const groundReservations = await GroundReservation.aggregate([
-      { $match: { ground: groundId } },
+      { $match: { ground: new mongoose.Types.ObjectId(groundId) }},
       {
         $group: {
           _id: "$status",
