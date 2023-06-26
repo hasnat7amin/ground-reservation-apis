@@ -12,7 +12,7 @@ module.exports = async (req, res) => {
         image = await addImage(req.file);
     }
     const ground = await Ground.create({
-        userId: req.user._id,
+        user: req.user._id,
         image: image,
         name: name,
         location: location,

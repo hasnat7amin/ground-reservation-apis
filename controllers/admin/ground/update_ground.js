@@ -23,7 +23,9 @@ module.exports = async (req, res) => {
       code: 200,
       status: true,
       message: "Successfully updated ground.",
-      result: await Ground.findOne({_id:req.params.id}),
+      result: await Ground.findOne({_id:req.params.id}).populate({
+        path: "user"
+      }),
     });
   } catch (error) {
     sendErrorResponse(

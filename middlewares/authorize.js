@@ -26,11 +26,15 @@ module.exports = async (req, res, next) => {
           });
         } else {
           let user = await User.findById(decodedToken.id);
-          if (user.role == "member") {
+          const today = new Date();
+          if (
+            user.membership !== "none" &&
+            user.membershipExpiresAt > today
+          ) {
             req.user = user;
             next();
-          }else{
-            throw new Error("Your role is not allowed to access this.");
+          } else {
+            throw new Error("Your membership has expired or is not valid.");
           }
         }
       }

@@ -5,27 +5,38 @@ const bcrypt = require("bcrypt");
 const UserSchema = new mongoose.Schema({
   username: {
     type: String,
-    required: [true, "Please enter an username"],
-    minlength: [2, "Minimum password length is a 2 charachtars"],
+    required: [true, "Please enter a username"],
+    minlength: [2, "Minimum password length is 2 characters"],
   },
-  email: { 
+  email: {
     type: String,
-    required: [false, "Please enter an Email"],
+    required: [false, "Please enter an email"],
     unique: true,
     lowercase: true,
-    validate: [validator.isEmail, "Please enter a valid Email"],
+    validate: [validator.isEmail, "Please enter a valid email"],
   },
   password: {
     type: String,
-    required: [true, "Please enter an Password"],
-    minlength: [6, "Minimum password length is a 6 charachtars"],
+    required: [true, "Please enter a password"],
+    minlength: [6, "Minimum password length is 6 characters"],
   },
-  role:{
+  role: {
     type: String,
     required: [true, "Please enter your role"],
-    enum: ["admin", "user", "member"],
-  }
- 
+    enum: ["user", "admin"],
+  },
+  phoneNo: {
+    type: String,
+  },
+  membership: {
+    type: String,
+    enum: ["none", "bronze", "silver", "gold"],
+    default: "none",
+  },
+  membershipExpiresAt: {
+    type: Date,
+    default: null,
+  },
 });
 
 /* This is a middleware that is used to hash the password before saving it to the database. */

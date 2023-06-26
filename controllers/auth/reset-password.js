@@ -17,7 +17,7 @@ module.exports = async (req, res) => {
             status: true,
             message: "User password changed successfully",
             result: {
-                user: await User.findOne({_id: user._id}).select("username email profileImage"),
+                user: await User.findOne({_id: user._id}).select("-password "),
                 token: token
             }
         })
