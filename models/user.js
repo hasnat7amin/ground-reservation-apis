@@ -37,6 +37,10 @@ const UserSchema = new mongoose.Schema({
     type: Date,
     default: null,
   },
+  image: {
+    type: String,
+    default: null,
+  },
 });
 
 /* This is a middleware that is used to hash the password before saving it to the database. */

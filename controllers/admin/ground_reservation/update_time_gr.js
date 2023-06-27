@@ -12,6 +12,26 @@ module.exports = async (req, res) => {
       return sendErrorResponse(res, 404, "Reservation not found.");
     }
 
+    // Check for overlapping reservations
+    const overlappingReservations = await GroundReservation.find({
+        ground: reservation.ground,
+        $and: [
+          { _id: { $ne: reservationId } },
+          { $or: [
+            { from: { $lt: new Date(to) }, to: { $gt: new Date(from) } },
+            { from: { $lt: new Date(from) }, to: { $gt: new Date(to) } }
+          ] }
+        ]
+      });
+  
+      if (overlappingReservations.length > 0) {
+        return sendErrorResponse(
+          res,
+          400,
+          "This ground is already booked for the specified time."
+        );
+      }
+
     // Update the from and to time of the reservation
     reservation.from = from;
     reservation.to = to;

@@ -9,18 +9,24 @@ const GroundSchema = new mongoose.Schema(
     },
     image:{
         type: String,
+        default: null
     },
     name:{
         type: String,
+        default: null
     },
     location:{
         type: String,
+        default: null
     },
     price:{
-        type: String,
+        type: Number,
+        default: 0
+
     },
     description:{
         type: String,
+        default: null
     }
 
   },
