@@ -10,6 +10,10 @@ const update_status_ground_reservation = require("../controllers/admin/ground_re
 const get_all_gr = require("../controllers/admin/ground_reservation/get_all_gr");
 const update_time_gr = require("../controllers/admin/ground_reservation/update_time_gr");
 const delete_ground_reservation = require("../controllers/admin/ground_reservation/delete_ground_reservation");
+const get_all_tournaments = require("../controllers/admin/tournament/get_all_tournaments");
+const create_tournaments = require("../controllers/admin/tournament/create_tournaments");
+const get_all_team_request = require("../controllers/admin/team_request/get_all_team_request");
+const update_status = require("../controllers/admin/team_request/update_status");
 const router = express.Router();
 
 // ground
@@ -25,5 +29,15 @@ router.put("/reservation/:reservationId",admin_authorize, update_status_ground_r
 router.get("/reservation/:groundId",admin_authorize,get_all_gr)
 router.put("/reservation/update/time/:reservationId",admin_authorize,update_time_gr)
 router.delete("/reservation/:reservationId",admin_authorize,delete_ground_reservation)
+
+
+// tournaments
+router.get("/tournament",admin_authorize,get_all_tournaments)
+router.post("/tournament",admin_authorize,create_tournaments)
+
+// team requests
+router.get("/team/request",admin_authorize,get_all_team_request);
+router.put("/team/request/:teamRequestId",admin_authorize,update_status);
+
 
 module.exports = router;

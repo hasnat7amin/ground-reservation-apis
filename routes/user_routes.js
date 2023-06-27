@@ -9,6 +9,7 @@ const contact_us = require("../controllers/user/profile/contact_us");
 const change_details = require("../controllers/user/profile/change_details");
 const change_image = require("../controllers/user/profile/change_image");
 const upload = require("../middlewares/multer");
+const get_profile = require("../controllers/user/profile/get_profile");
 
 const router = express.Router();
 
@@ -27,6 +28,7 @@ router.post("/contact-us",user_authorize, contact_us)
 // profile 
 router.put("/profile/change-details",user_authorize,change_details)
 router.put("/profile/change-image",user_authorize,upload.single('image'),user_authorize,change_image)
+router.get("/profile",user_authorize,get_profile)
 
 
 module.exports = router;
