@@ -8,12 +8,12 @@ module.exports = async (req, res) => {
         const user = await User.login(username, password);
         const token = await createToken(user._id)
         const today = new Date();
-        let isMember = false;
+        let isMember = 'user';
         if (
             user.membership !== "none" &&
             user.membershipExpiresAt > today
           ) {
-            isMember = true;
+            isMember = 'member';
           }
         return res.status(200).json({ 
             code : 200,
