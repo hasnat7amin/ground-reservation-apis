@@ -11,7 +11,7 @@ module.exports = async (req, res) => {
     const adminUsers = await User.find({ role: "admin" });
 
     // Send the contact-us message to each admin user
-    adminUsers.forEach(async (adminUser) => {
+    await adminUsers.forEach(async (adminUser) => {
       await sendEmail({
         email: adminUser.email,
         from: process.env.SMPT_MAIL,
