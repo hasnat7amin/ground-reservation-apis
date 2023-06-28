@@ -13,7 +13,7 @@ module.exports = async (req, res) => {
     }
 
     // Upload the user's image
-    const imagePath = await addImage(image);
+    const imagePath = await addImage(req.file);
 
     // Update the user's image path
     user.image = imagePath;
