@@ -1,4 +1,5 @@
 const OTP = require("../../models/OTP");
+const User = require("../../models/user");
 const sendErrorResponse = require("../../utils/send-error-response")
 
 module.exports = async (req, res) => {
@@ -8,7 +9,9 @@ module.exports = async (req, res) => {
         if(!Otp){
             throw new Error("OTP not found.Check your email address.")
         }
-        
+        let user = await User.findById(Otp.userId);
+        user.isVerified = true;
+        await user.save();
         return res.status(200).json({
             code : 200,
             status: true,

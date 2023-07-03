@@ -18,7 +18,7 @@ const router = express.Router();
 
 // ground
 router.post("/ground",admin_authorize,upload.single("image"),admin_authorize, add_ground);
-router.put("/ground/:id",admin_authorize,upload.single("image"),admin_authorize, update_ground);
+router.patch("/ground/:id",admin_authorize,upload.single("image"),admin_authorize, update_ground);
 router.get("/ground/:id",admin_authorize, get_ground);
 router.get("/ground",admin_authorize, get_all_ground);
 router.delete("/ground/:id",admin_authorize, delete_ground);

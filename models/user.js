@@ -28,6 +28,10 @@ const UserSchema = new mongoose.Schema({
   phoneNo: {
     type: String,
   },
+  isVerified:{
+    type: Boolean,
+    default: false,
+  },
   membership: {
     type: String,
     enum: ["none", "bronze", "silver", "gold"],

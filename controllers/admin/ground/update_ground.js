@@ -7,16 +7,17 @@ require("dotenv/config");
 module.exports = async (req, res) => {
   try {
     const { name,location,price,description } = req.body;
-    let image;
+    let image = null;
     if(req.file){
         image = await addImage(req.file);
     }
+   const old_ground = await Ground.findById(req.params.id);
     const ground = await Ground.findByIdAndUpdate(req.params.id,{
-        image: image,
-        name: name,
-        location: location,
-        description: description,
-        price: price
+        image: image || old_ground.image,
+        name: name || old_ground.name,
+        location: location || old_ground.location,
+        description: description || old_ground.description,
+        price: price || old_ground.price
     })
     
     return res.status(200).json({

@@ -13,6 +13,45 @@ module.exports = async (req, res) => {
         $group: {
           _id: "$status",
           reservations: { $push: "$$ROOT" },
+
+        },
+        
+      },
+      {
+        $lookup: {
+          from: "users", // Assuming the user collection name is "users"
+          localField: "reservations.user",
+          foreignField: "_id",
+          as: "populatedUser",
+        },
+      },
+      // {
+      //   $lookup: {
+      //     from: "Ground", // Assuming the ground collection name is "grounds"
+      //     localField: "reservations.ground",
+      //     foreignField: "_id",
+      //     as: "populatedGround",
+      //   },
+      // },
+      {
+        $addFields: {
+          "reservations.user": { $arrayElemAt: ["$populatedUser", 0] },
+          // "reservations.ground": { $arrayElemAt: ["$populatedGround", 0] },
+        },
+      },
+      {
+        $project: {
+          _id: 0,
+          status: "$_id",
+          "reservations.user.username": 1,
+          "reservations.user.email": 1,
+          "reservations.user.image": 1,
+          "reservations.ground": 1,
+          "reservations.from": 1,
+          "reservations.to": 1,
+          "reservations.totalParticipants": 1,
+          "reservations.totalPrice": 1,
+
         },
       },
     ]);

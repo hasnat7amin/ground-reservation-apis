@@ -3,7 +3,7 @@ const sendErrorResponse = require("../../../utils/send-error-response");
 
 module.exports = async (req, res) => {
   try {
-    const { username, email, phoneNo,password } = req.body;
+    const { username, phoneNo,password } = req.body;
 
     // Check if the user exists
     const user = await User.findById(req.user._id);
@@ -13,7 +13,6 @@ module.exports = async (req, res) => {
 
     // Update the user details
     user.username = username || user.username;
-    user.email = email || user.email;
     user.phoneNo = phoneNo || user.phoneNo;
     user.password = password || user.password;
     await user.save();
