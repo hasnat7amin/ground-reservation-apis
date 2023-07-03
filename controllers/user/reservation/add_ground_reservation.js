@@ -6,6 +6,34 @@ module.exports = async (req, res) => {
   try {
     const { groundId, from, to, totalParticipants } = req.body;
 
+    // Validate the from and to dates
+    const fromDate = new Date(from);
+    const toDate = new Date(to);
+    const currentDate = new Date();
+
+    // Remove the timezone offset
+    const fromDateString = fromDate.toISOString().split("T")[0];
+    const toDateString = toDate.toISOString().split("T")[0];
+
+    // Check if the dates are on the same day
+    if (fromDateString !== toDateString) {
+      return sendErrorResponse(
+        res,
+        400,
+        "From and to dates should be on the same day."
+      );
+    }
+
+    // Check if the maximum 4-hour difference is exceeded
+    const timeDifferenceInHours = (toDate - fromDate) / (1000 * 60 * 60);
+    if (timeDifferenceInHours > 4) {
+      return sendErrorResponse(
+        res,
+        400,
+        "The maximum allowed duration is 4 hours."
+      );
+    }
+
     // Check if the ground exists
     const ground = await Ground.findById(groundId);
     if (!ground) {
@@ -43,7 +71,7 @@ module.exports = async (req, res) => {
       from: new Date(from),
       to: new Date(to),
       totalParticipants: totalParticipants,
-      totalPrice: totalPrice
+      totalPrice: totalPrice,
     });
 
     return res.status(200).json({
