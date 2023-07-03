@@ -49,13 +49,14 @@ module.exports = async (req, res) => {
           "reservations.ground": 1,
           "reservations.from": 1,
           "reservations.to": 1,
+          "reservations._id": 1,
           "reservations.totalParticipants": 1,
           "reservations.totalPrice": 1,
 
         },
       },
     ]);
-
+ 
     return res.status(200).json({
       code: 200,
       status: true,
