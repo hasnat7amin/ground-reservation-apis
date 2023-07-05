@@ -6,7 +6,7 @@ module.exports = async (req, res) => {
     const { _id } = req.user;
 
     const teamRequests = await TeamRequest.find({ user: _id })
-      .populate("user", "name email")
+      .populate("user", "username email image")
       .exec();
 
     return res.status(200).json({

@@ -1,3 +1,4 @@
+const Queries = require("../../../models/Queries");
 const User = require("../../../models/user");
 const sendEmail = require("../../../utils/send-email");
 const sendErrorResponse = require("../../../utils/send-error-response");
@@ -19,6 +20,13 @@ module.exports = async (req, res) => {
         message: `Hi ${adminUser.username},\n\nYou have received a new contact-us message:\n\nName: ${name}\nEmail: ${email}\nDescription: ${description}\n\nPlease respond to the user accordingly.\n\nBest regards,\nYour App`,
       });
     });
+
+    await Queries.create({
+      user: req.user._id,
+      name: name,
+      email: email,
+      description: description
+    })
 
     return res.status(200).json({
       code: 200,
