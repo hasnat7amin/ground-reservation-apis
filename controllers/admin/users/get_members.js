@@ -3,11 +3,7 @@ const sendErrorResponse = require("../../../utils/send-error-response");
 
 module.exports  = async (req, res) => {
   try {
-    const currentDate = new Date();
-    const users = await User.find({
-      role: "user",
-      membershipExpiresAt: { $gte: currentDate },
-    }).select("-password ");
+    const users = await User.find({ role: "user", membership: { $ne: "none" } }).select("-password");
     return res.status(200).json({
       code: 200,
       status: true,

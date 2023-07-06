@@ -21,6 +21,7 @@ const get_members = require("../controllers/admin/users/get_members");
 const get_admin_profile = require("../controllers/admin/profile/get_admin_profile");
 const get_queries = require("../controllers/admin/queries/get_queries");
 const change_query_status = require("../controllers/admin/queries/change_query_status");
+const get_active_members = require("../controllers/admin/users/get_active_members");
 const router = express.Router();
 
 // ground
@@ -52,6 +53,8 @@ router.put("/profile/change-image",admin_authorize,upload.single('image'),admin_
 router.get("/profile",admin_authorize,get_admin_profile)
 router.get("/users",admin_authorize,get_users);
 router.get("/members",admin_authorize,get_members)
+router.get("/members/active",admin_authorize,get_active_members)
+
 
 //queries
 router.get("/queries",admin_authorize,get_queries);
