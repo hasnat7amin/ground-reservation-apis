@@ -5,7 +5,7 @@ const sendErrorResponse = require("../../utils/send-error-response");
 module.exports = async (req, res) => {
   try {
     const { username, password } = req.body;
-    const user = await User.login(username, password);
+    const user = await User.login(username.trim(), password.trim());
     const token = await createToken(user._id);
     const today = new Date();
     let isMember = "user";
