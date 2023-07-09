@@ -41,12 +41,13 @@ module.exports = async (req, res) => {
       },
       {
         $project: {
-          _id: 0,
+          _id: 1,
           status: "$_id",
           "reservations.user.username": 1,
           "reservations.user.email": 1,
-          "reservations.user.image": 1,
+          "reservations.user.image": 1, 
           "reservations.ground": 1,
+          "reservations.status": 1,
           "reservations.from": 1,
           "reservations.to": 1,
           "reservations._id": 1,
